@@ -18,6 +18,10 @@
         frigate = prev.frigate.override {
           inherit (final) python312;
         };
+        nginxStable = prev.nginxStable.overrideAttrs (oldAttrs: {
+          env.NIX_CFLAGS_COMPILE =
+            (oldAttrs.env.NIX_CFLAGS_COMPILE or "") + " -Wno-error=deprecated-declarations";
+        });
       };
     };
 }
