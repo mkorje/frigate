@@ -3,8 +3,8 @@
     { ... }:
     {
       overlays.default = final: prev: {
-        python312 = prev.python312.override {
-          packageOverrides = _: pyprev: {
+        python312Packages = prev.python312Packages.override {
+          overrides = _: pyprev: {
             tensorflow-bin = pyprev.tensorflow-bin.overridePythonAttrs (_: {
               pname = "tensorflow";
               version = "2.19.0";
@@ -16,7 +16,7 @@
           };
         };
         frigate = prev.frigate.override {
-          inherit (final) python312;
+          inherit (final) python312Packages;
         };
         nginxStable = prev.nginxStable.overrideAttrs (oldAttrs: {
           env.NIX_CFLAGS_COMPILE =
